@@ -175,6 +175,8 @@ static void CodeIso15693AsReader(uint8_t *cmd, int n)
 	for(i = 0; i < 4; i++) {
 		ToSendStuffBit(1);
 	}
+	
+	ToSendMax++;
 }
 
 // encode data using "1 out of 256" scheme
@@ -862,7 +864,7 @@ static int GetIso15693CommandFromReader(uint8_t *received, size_t max_len, uint3
 	uint8_t dmaBuf[ISO15693_DMA_BUFFER_SIZE];
 
 	// the decoder data structure
-	DecodeReader_t DecodeReader;
+	DecodeReader_t DecodeReader = {0};
 	DecodeReaderInit(received, max_len, &DecodeReader);
 
 	// wait for last transfer to complete
